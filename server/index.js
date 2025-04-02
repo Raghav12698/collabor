@@ -17,8 +17,7 @@ dotenv.config({
 
 // Defining PORT and corsOrigin
 const PORT = process.env.PORT || 8800; // Fallback to 8800 if PORT is not defined
-const corsOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:5173']; // Fallback to default origin if CORS_ORIGIN is not defined
-
+const corsOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:5174']; // Fallback to default origin if CORS_ORIGIN is not defined
 // Creating an express app
 const app = express();
 const httpServer = http.createServer(app);
@@ -79,4 +78,5 @@ connectDB()
     })
     .catch((error) => {
         console.log('Error starting the server:', error);
-    });
+    });     
+    

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import './Home.scss';
+import Canvas from '../../components/canvas/Canvas';
 import CreateRoom from "../../components/CreateRoom/CreateRoom";
 import { useSelector } from "react-redux";
 import socket from "../../utils/socket";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 
 const Home = () => {
 
@@ -11,6 +12,12 @@ const Home = () => {
     //const [roomsList, setRoomsList] = useState([]);
     const currentUser = useSelector((state) => state.auth.currentUser);
     const activeRooms = useSelector((state) => state.rooms.activeRooms)
+    const navigate = useNavigate();
+
+    // 1. Add the missing handler function
+    const handleNewCanvas = () => {
+        navigate('/canvas/new'); // Or your desired canvas route
+    };
 
     const openRoomModal = () => {
         setRoomModal(true);
@@ -25,7 +32,7 @@ const Home = () => {
             <div className="welcome-section">
                 <div className="message-container">Welcome, {currentUser?.firstName} !</div>
                 <div className="action-container">
-                    <button>New Canvas</button>
+                <button onClick={handleNewCanvas}>New Canvas</button>
                     <button onClick={openRoomModal}>New Room</button>
                     {roomModal && <CreateRoom onClose={handleClose} />}
                 </div>

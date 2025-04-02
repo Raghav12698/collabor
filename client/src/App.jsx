@@ -3,7 +3,7 @@ import {
   createHashRouter,
   RouterProvider
 } from 'react-router-dom';
-
+import Canvas from './components/canvas/Canvas';
 import Layout from './layout/AppLayout';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
@@ -14,6 +14,7 @@ import Protection from './layout/AuthLayout';
 function App() {
 
   const router = createHashRouter([
+    
     {
       path: '/',
       element: (
@@ -33,7 +34,10 @@ function App() {
         {
           path: '/room/:roomName',
           element: <Room />
-        }
+        },
+        {
+          path:"/canvas/new", element:(<Canvas />)
+        },
       ]
     },
     {

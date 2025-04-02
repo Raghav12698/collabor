@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
-import { getuser } from "../api/api";
 import { useSelector } from "react-redux";
-
-const Protection = ({ children, authentication = true }) => {
+const AuthLayout = ({ children, authentication = true }) => {
     const currentUser = useSelector(state => state.auth.currentUser);
-
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
-    const [loading, setloading] = useState(true);
+
 
     useEffect(() => {
-        if (authentication && !currentUser) {
-            navigate('/login')
-        } else if (!authentication && currentUser) {
-            navigate('/');
-        }
-        setloading(false);
+        const checkAuth = async () => {
+            // Wait briefly to allow Redux state to initialize
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
+            if (authentication) {
+                if (!currentUser) {
+                    console.log("No user found, redirecting to login");
+                    navigate('/login');
+                }
+            } else if (!authentication && currentUser) {
+                console.log("User found, redirecting to home");
+                navigate('/');
+            }
+            setLoading(false);
+        };
+
+        checkAuth();
     }, [authentication, currentUser, navigate]);
 
-    return loading ? <LoadingScreen /> : <>{children}</>
-}
+    if (loading) {
+        return <LoadingScreen />;
+    }
 
-export default Protection;
+    return <>{children}</>;
+};
+
+export default AuthLayout;

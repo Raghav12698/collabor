@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './Room.scss';
 import roomIcon from '../../assets/icons/room-icon.png';
 import Canvas from '../../components/canvas/Canvas.jsx';
-import { deleteRoom } from '../../reducers/roomSlice';
+import { deleteRoom } from '../../reducers/roomSlice.js';
 const Room = () => {
     const dispatch = useDispatch();
     const roomName = useParams().roomName;
